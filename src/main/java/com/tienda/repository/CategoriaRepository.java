@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
+    //Se crea una consulta derivada para recuperar solo los categorias activas
     public List<Categoria> findByActivoTrue();
     
 }
