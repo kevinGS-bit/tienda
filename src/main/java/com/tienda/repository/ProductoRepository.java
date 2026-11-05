@@ -12,18 +12,20 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     //Se crea una consulta derivada para recuperar solo los productos activas
     public List<Producto> findByActivoTrue();
-    
+
     //Consulta derivada que recupera los producto de un rango de precio y los ordena por precio ascendentemente
     public List<Producto> findByPrecioBetweenOrderByPrecioAsc(BigDecimal precioInf, BigDecimal precioSup);
-    
-    
+
     //Consulta JPQL que recupera los producto de un rango de precio y los ordena por precio ascendentemente
     @Query(value = "SELECT p FROM Producto p WHERE p.precio BETWEEN :precioInf AND :precioSup ORDER BY p.precio ASC")
     public List<Producto> consultaJPQL(BigDecimal precioInf, BigDecimal precioSup);
-    
-    
+
     //Consulta SQL que recupera los producto de un rango de precio y los ordena por precio ascendentemente
     @Query(nativeQuery = true,
             value = "SELECT * FROM producto p WHERE p.precio BETWEEN :precioInf AND :precioSup ORDER BY p.precio ASC")
     public List<Producto> consultaSQL(BigDecimal precioInf, BigDecimal precioSup);
+
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM producto p WHERE p.existencias BETWEEN :unidadesInf AND :unidadesSup ORDER BY p.existencias ASC")
+    public List<Producto> consultaSQLP(BigDecimal unidadesInf, BigDecimal unidadesSup);
 }
